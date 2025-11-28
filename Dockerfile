@@ -9,10 +9,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN playwright install --with-deps
+RUN python -m playwright install --with-deps
 
-COPY . /app
+COPY . .
 
-ENV API_SECRET=change-me
+ENV PORT=8080
+ENV API_SECRET=akshayTDS2025
 
 CMD ["uvicorn", "app_fastapi:app", "--host", "0.0.0.0", "--port", "8080"]
