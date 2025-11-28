@@ -1,19 +1,18 @@
-FROM python:3.11-slim
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libmagic1 \
-    poppler-utils \
-    fonts-liberation \
-    && rm -rf /var/lib/apt/lists/*
+# Official Playwright image with Python + browsers installed
+FROM mcr.microsoft.com/playwright/python:v1.44.0-focal
 
 WORKDIR /app
+
+# Install Python deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python -m playwright install --with-deps
 
+# Copy project files
 COPY . .
 
+# Environment variables
 ENV PORT=8080
 ENV API_SECRET=akshayTDS2025
 
+# Start FastAPI server
 CMD ["uvicorn", "app_fastapi:app", "--host", "0.0.0.0", "--port", "8080"]
