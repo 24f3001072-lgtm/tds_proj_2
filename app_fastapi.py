@@ -16,6 +16,9 @@ from pdf_utils import parse_pdf_bytes
 from utils.downloader import download_url_or_datauri
 from utils.logger import log
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 API_SECRET = os.getenv("API_SECRET", "change-me")
 BROWSER_TIMEOUT = int(os.getenv("BROWSER_TIMEOUT", "60"))
